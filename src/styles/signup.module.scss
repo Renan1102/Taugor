@@ -1,0 +1,87 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    height: 100vh; /* Define a altura para ocupar toda a tela verticalmente */
+  width: 100%;
+  }
+  
+  .container2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+    width: 50vh;
+    background-color: rgb(207, 195, 195);
+    border-radius: 8px;
+    border: 2px solid black;
+  }
+
+  .inputContainer {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .input {
+    background-color: #e6e3e3;
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+  }
+  
+  .buttonContainer {
+    width: 60%;
+    
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+  }
+  
+  .button {
+    background-color: #0782F9;
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .buttonOutline {
+    background-color: white;
+    margin-top: 5px;
+    border: 2px solid #0782F9;
+  }
+  
+  .buttonText,
+  .buttonOutlineText {
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+  }
+  
+  .buttonOutlineText {
+    color: #0782F9;
+  }
+  
+  .log {
+    color: blue;
+  }
+  
+  .registrado {
+    margin-top: 15px;
+  }
+  
+  .principal {
+    color: #0782F9;
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-family: serif;
+  }
+
+  .erro{
+    color: red;
+  }

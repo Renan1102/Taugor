@@ -1,0 +1,74 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  height: 100vh; /* Define a altura para ocupar toda a tela verticalmente */
+  width: 100%;
+}
+.container2{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  width: 50vh;
+  background-color: rgb(207, 195, 195);
+  border-radius: 8px;
+  border: 2px solid black;
+}
+.logo {
+  width: 150px;
+  height: 150px;
+}
+
+.buttonOutlineText {
+  color: #0782F9;
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  font-family: serif;
+}
+
+.inputContainer {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  background-color: #e6e3e3;
+  padding: 10px 15px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.buttonContainer {
+  width: 60%;
+ 
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.button {
+  background-color: #0782F9;
+  width: 100%;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer; /* Adicionando estilo de cursor */
+}
+
+.registrado {
+  margin-top: 15px;
+}
+
+.log {
+  color: blue;
+  text-decoration: none; /* Adicionando estilo de remoção de sublinhado */
+}
+
+.erro{
+  color: red;
+}
