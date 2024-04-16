@@ -4,6 +4,10 @@ import { addDoc, collection, getDoc, doc, query, where, getDocs } from "firebase
 import { useRouter } from "next/dist/client/router";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { PDFViewer } from '@react-pdf/renderer';
+import FuncionarioPDF from '../../components/FuncionarioPDF';
 
 export default function Func({ dados }) {
   const [historicoFuncionario, setHistoricoFuncionario] = useState([]);
@@ -12,42 +16,49 @@ export default function Func({ dados }) {
   useEffect(() => {
     async function fetchHistorico() {
       try {
+        // Inicia o carregamento
+        setLoading(true);
+
         const historicoQuery = query(collection(db, 'HistoricoFuncionarios'), where('idFuncionario', '==', dados._id));
         const historicoSnapshot = await getDocs(historicoQuery);
         const historicoData = historicoSnapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data()
+          
         }));
         setHistoricoFuncionario(historicoData);
+
+        // Se ocorrer um erro, finaliza o carregamento e manipula o erro conforme necessário
+        setLoading(false);
       } catch (error) {
         console.error('Erro ao buscar histórico do funcionário:', error);
+
+         // Se ocorrer um erro, finaliza o carregamento e manipula o erro conforme necessário
+         setLoading(false);
       }
     }
     fetchHistorico();
   }, [dados._id]);
 
-  return (
-    <div>
-      <p className="fw-light"><b>Nome:</b> {dados.nome}</p>
-      <p className="fw-light"><b>Sexo:</b> {dados.sexo}</p>
-      <p className="fw-light"><b>Endereço:</b> {dados.endereco}</p>
-      <p className="fw-light"><b>Telefone:</b> {dados.telefone}</p>
-      <p className="fw-light"><b>Data de Nascimento:</b> {dados.dataNascimento}</p>
-      <p className="fw-light"><b>Cargo:</b> {dados.cargo}</p>
-      <p className="fw-light"><b>Setor:</b> {dados.setor}</p>
-      <p className="fw-light"><b>Status:</b> {dados.status}</p>
 
-      <h2>Histórico do Funcionário</h2>
-      {historicoFuncionario.map(item => (
-        <div key={item.id}>
-          <p>Id do Histórico: {item.id}</p>
-          <p>Descrição: {[item.detalhes.nome,' ', item.detalhes.sexo]}</p>
-          <p>Data da Alteração: {item.dataAlteracao}</p>
-          <p>Status: {item.tipoAlteracao}</p>
-          <hr />
-        </div>
-      ))}
+  const [loading, setLoading] = useState(true);
+
+
+  return (
+    <>
+    <div>
+      <h1>Detalhes do Funcionário</h1>
+      {loading ? ( // Se estiver carregando, exibe um indicador de carregamento
+        <p>Carregando...</p>
+      ) : ( // Caso contrário, exibe o PDFViewer
+        typeof window !== 'undefined' && ( // Renderiza o PDFViewer apenas no lado do cliente
+          <PDFViewer width="100%" height="700vh">
+            <FuncionarioPDF dados={dados} historicoFuncionario={historicoFuncionario} />
+          </PDFViewer>
+        )
+      )}
     </div>
+    </>
   );
 }
 

@@ -61,10 +61,11 @@ export default function Home() {
   const onSubmit = async (data) => {
     try {
       if (activeStep === steps.length - 1) {
-        await handleImageUpload();
+        const imageUrl = await handleImageUpload();
         //para o telefone não ficar undefined
         data.telefone = phone;
-        data.status = 'contratado';
+        data.status = 'Contratado';
+        data.imageUrl = imageUrl; // Adicione o URL da imagem aos dados do funcionário
         console.log(data)
         
         const funcionarioRef = await addDoc(collection(db, "Funcionarios"), data);
@@ -74,7 +75,7 @@ export default function Home() {
       const historicoData = {
       idFuncionario: funcionarioRef.id,
       dataAlteracao: new Date().toString(),
-      tipoAlteracao: 'contratado', 
+      tipoAlteracao: 'Contratado', 
       detalhes: data // Salva todos os detalhes do funcionário como parte do histórico
     };
     

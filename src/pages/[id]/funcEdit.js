@@ -51,6 +51,11 @@ export default function FuncEdit({ dados }) {
       console.log(image)
     }
   };
+
+  const handlePhone = (e) => {
+    setPhone(e.target.value)
+    console.log(phone)
+  };
   
 
   // Definindo o esquema de validação com base na etapa ativa
@@ -62,6 +67,21 @@ export default function FuncEdit({ dados }) {
     const { id } = router.query;
     try {
       if (activeStep === steps.length - 1) {
+        if(form.telefone === phone){
+          form.telefone = dados.telefone;
+        }else{
+        form.telefone = phone;
+      }
+
+      // Atualiza a imagem se uma nova imagem for selecionada
+      if (image) {
+        const imageUrl = await handleImageUpload();
+        if (imageUrl) {
+          form.imageUrl = imageUrl;
+          console.log('nova imagem')
+        }
+      }
+      
         const res = await fetch(`/api/funcionario/${id}`, {
           method: "PUT",
           headers: {
@@ -71,13 +91,14 @@ export default function FuncEdit({ dados }) {
           body: JSON.stringify(form),
       });
 
-      const data = await res.json();
-      console.log(data);
+      form.status = "Atualizacao"
+      //const form = await res.json();
+      console.log(form);
       // Salvar um registro na coleção de histórico
       const historicoData = {
         idFuncionario: id,
         dataAlteracao: new Date().toString(),
-        tipoAlteracao: 'atualizacao',
+        tipoAlteracao: 'Atualizacao',
         detalhes: form // Salva os novos detalhes do funcionário como parte do histórico
       };
       await addDoc(collection(db, 'HistoricoFuncionarios'), historicoData);
@@ -169,7 +190,7 @@ export default function FuncEdit({ dados }) {
             </div>
             <div className={styles.input_container}>
             <IMaskInput mask="(00) 00000-0000" type="text" placeholder="Ex:(54) 00000-0000"
-             autoComplete="off" required defaultValue={dados.telefone} onChange={(e) => setPhone(e.target.value)}/>
+             autoComplete="off" required defaultValue={dados.telefone} onChange={handlePhone}/>
               <span className={styles.erro}>{errors.telefone?.message}</span>
             </div>
             <div className={styles.input_container}>

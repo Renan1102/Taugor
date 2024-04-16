@@ -1,5 +1,5 @@
 import { db } from "../../../../firebase";
-import { updateDoc, deleteDoc, getDoc, doc } from "firebase/firestore";
+import { updateDoc, deleteDoc, getDoc, doc, query, collection, where, getDocs } from "firebase/firestore";
 
 export default async function handler(req, res) {
   // GET api/empresa/:id
@@ -41,7 +41,21 @@ async function deleteFuncionario(id) {
   const funcRef = doc(db, 'Funcionarios', id);
   const deletedFuncSnapshot = await getDoc(funcRef);
   await deleteDoc(funcRef);
-  return deletedFuncSnapshot.data();
+  
+  // Consulta o histórico do funcionário com base no ID
+  const historicoQuery = query(collection(db, 'HistoricoFuncionarios'), where('idFuncionario', '==', id));
+  const historicoSnapshot = await getDocs(historicoQuery);
+
+  // Itera sobre os documentos do histórico e os exclui um por um
+  const deletions = historicoSnapshot.docs.map(async (doc) => {
+    await deleteDoc(doc.ref);
+    return doc.data();
+  })
+  
+// Espera que todas as exclusões sejam concluídas
+await Promise.all(deletions);
+
+return { deletedFuncionario: id, deletedHistorico: historicoSnapshot.docs.map(doc => doc.id) };
 }
 
 // Função para obter dados da empresa do Firestore

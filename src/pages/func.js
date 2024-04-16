@@ -42,15 +42,15 @@ async function demitirFuncionario(_id) {
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({ status: "demitido" }), // Atualiza apenas o status
+      body: JSON.stringify({ status: "Demitido" }), // Atualiza apenas o status
     });
-    console.log("demitiu")
+    console.log("Demitiu")
 
     if (!res.ok) {
       throw new Error("Erro ao demitir funcionário");
     }
     
-    dados.status = 'demitido';
+    dados.status = 'Demitido';
     
     const historicoData = {
       idFuncionario: _id,
@@ -60,6 +60,7 @@ async function demitirFuncionario(_id) {
     };
     await addDoc(collection(db, 'HistoricoFuncionarios'), historicoData);
     console.log("atualizou historico")
+    window.location.reload();
 
     return { success: true };
   } catch (error) {
@@ -68,18 +69,20 @@ async function demitirFuncionario(_id) {
   }
 }
 
+
   return (
     <section className={s.container}>
 
  {
-              dados.map(({ _id, nome, sexo, endereco, telefone, dataNascimento, cargo, dataAdmissao, setor, salario, status }) => (
+              dados.map(({ _id, nome, sexo, endereco, telefone, dataNascimento, cargo, dataAdmissao, setor, salario, status, imageUrl }) => (
                 <div className={s.cont} key={_id}>
     <Card className={s.card}>
       <CardMedia
         component="img"
         alt="green iguana"
-        height="140"
-        image="/static/images/cards/contemplative-reptile.jpg"
+        
+        image={imageUrl}
+        className={s.img_redimensionada}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
@@ -105,7 +108,13 @@ async function demitirFuncionario(_id) {
         <Button size="small" onClick={() => onDelete(_id)}>
             Deletar
         </Button>
-        {status != 'demitido' ?
+        <Button size="small">
+        <Link href={`/${_id}/cargoEdit`}>
+                    Promover
+            </Link>
+        </Button>
+        
+        {status != 'Demitido' ?
         <Button size="small" onClick={() => demitirFuncionario(_id)}>
             Terminar
         </Button>: ''}
