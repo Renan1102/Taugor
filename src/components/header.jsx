@@ -50,7 +50,7 @@ export const Header = () => {
             <Button color="inherit">Home</Button>
             </Link>
 
-            <Link className={s.but} href={`/func`}>
+            <Link className={s.but} href={`/cadastro`}>
             <Button color="inherit">Cadastrar Funcionários</Button>
             </Link>
           </div>

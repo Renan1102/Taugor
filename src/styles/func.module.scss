@@ -1,37 +1,40 @@
-.card{
-    margin-top: 50px;
-    margin-left: 15vh;
-    min-width: 50vh;
+.card {
+  margin-top: 50px;
+  margin-left: 15vh;
+  min-width: 55vh;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px; 
+  overflow: hidden; /* Impede que o conteúdo transborde da carta */
 }
 
-.container{
-    display: flex;
+.container {
+  display: flex;
   flex-wrap: wrap;
+  //justify-content: space-around; /* Alinha os cartões no centro horizontalmente */
 }
 
 .img_redimensionada {
   width: 30vh;
   height: 200px;
-  display: block;
-  margin: auto;
-  border-radius: 50%;
-
+  object-fit: cover; /* Redimensiona a imagem para cobrir o espaço especificado */
+  border-radius: 10px 10px 0 0; 
 }
 
-.but{
+.but {
   color: white;
   text-decoration: none;
 }
 
-.but_cadastro{
-  margin-left: 40%;
+.but_cadastro {
+  margin-left: auto; 
 }
 
-.title_func{
+.title_func {
   margin-left: 15vh;
   margin-top: 5vh;
 }
 
-.infos{
-  border-top: 1px solid rgb(212, 212, 212);
+.infos {
+  padding: 20px; 
 }
+

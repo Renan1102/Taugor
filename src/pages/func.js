@@ -110,18 +110,18 @@ a.nome.localeCompare(b.nome));
     <Card className={s.card}>
       <CardMedia
         component="img"
-        alt="green iguana"
+        alt="Foto de Perfil"
         
         image={imageUrl}
         className={s.img_redimensionada}
       />
       <CardContent className={s.infos}>
         <Typography gutterBottom variant="h5" component="div">
-        {nome}
+        <strong>{nome}</strong>
         </Typography>
         <Typography variant="body2" color="text.secondary">
-        {cargo}<br/>
-        {setor}
+        Setor: {setor}<br/>
+        Cargo: {cargo}
         </Typography>
       </CardContent>
       <CardActions>
@@ -173,11 +173,11 @@ a.nome.localeCompare(b.nome));
       />
       <CardContent className={s.infos}>
         <Typography gutterBottom variant="h5" component="div">
-        {nome}
+        <strong>{nome}</strong>
         </Typography>
         <Typography variant="body2" color="text.secondary">
-        {cargo}<br/>
-        {status}
+        Cargo: {cargo}<br/>
+        Status: {status}
         </Typography>
       </CardContent>
       <CardActions>
