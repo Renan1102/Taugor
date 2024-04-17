@@ -85,7 +85,7 @@ useEffect(() => {
   })
 
   return unsubscribe
-}, [])
+}, [router])
 
 const ordenadas = dados.sort((a, b) =>
 a.nome.localeCompare(b.nome));

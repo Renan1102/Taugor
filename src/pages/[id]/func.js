@@ -50,7 +50,7 @@ useEffect(() => {
   })
 
   return unsubscribe
-}, [])
+}, [router])
 
 
   const [loading, setLoading] = useState(true);

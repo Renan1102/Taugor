@@ -42,7 +42,7 @@ const secondPageSchema = yup.object().shape({
 const steps = ['Informações de contato', 'Informações de Funcionário'];
 
 export default function Home() {
-  const router = useRouter();
+  const router = useRouter([]);
   const [activeStep, setActiveStep] = useState(0);
   const [image, setImage] = useState(null);
   const [phone, setPhone] = useState();
@@ -131,7 +131,7 @@ useEffect(() => {
   })
 
   return unsubscribe
-}, [])
+}, [router])
 
   return (
     <>

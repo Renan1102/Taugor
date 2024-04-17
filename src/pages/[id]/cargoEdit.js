@@ -12,7 +12,7 @@ import s from "@/styles/cadastro.module.css";
 import { Header } from '../../components/header';
 import CreateTwoToneIcon from '@mui/icons-material/CreateTwoTone';
 
-export default function cargoEdit({ dados }) {
+export default function CargoEdit({ dados }) {
   const router = useRouter();
   const { id } = router.query; // Obtém o ID do funcionário da rota
 
@@ -60,7 +60,7 @@ useEffect(() => {
   })
 
   return unsubscribe
-}, [])
+}, [router])
 
 
   return (

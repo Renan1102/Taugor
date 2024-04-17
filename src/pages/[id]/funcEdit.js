@@ -155,7 +155,7 @@ useEffect(() => {
   })
 
   return unsubscribe
-}, [])
+}, [router])
 
   return (
     <>
