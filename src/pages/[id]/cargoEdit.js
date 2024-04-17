@@ -32,6 +32,8 @@ export default function cargoEdit({ dados }) {
         status: 'Promovido'
       });
       console.log('Cargo atualizado com sucesso!');
+      dados.cargo = formData.cargo
+      console.log(dados.cargo)
       
 
       const historicoData = {

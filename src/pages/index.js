@@ -19,6 +19,7 @@ const [loginError, setLoginError] = useState();
 
 
 //verificar logado
+/*
 useEffect(() => {
   const unsubscribe = auth.onAuthStateChanged(user => {
     if (user) {
@@ -28,7 +29,7 @@ useEffect(() => {
 
   return unsubscribe
 }, [])
-
+*/
 //fazer login
 const handleLogin = () => {
   signInWithEmailAndPassword(auth, email, password)
@@ -36,6 +37,7 @@ const handleLogin = () => {
       const user = userCredential.user;
       console.log('Logged in with:', user.email);
       alert("Você logou")
+      router.replace('/func');
     })
     .catch(error => {
       console.log(error);

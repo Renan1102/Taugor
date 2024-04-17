@@ -115,7 +115,7 @@ a.nome.localeCompare(b.nome));
         image={imageUrl}
         className={s.img_redimensionada}
       />
-      <CardContent>
+      <CardContent className={s.infos}>
         <Typography gutterBottom variant="h5" component="div">
         {nome}
         </Typography>
@@ -171,7 +171,7 @@ a.nome.localeCompare(b.nome));
         image={imageUrl}
         className={s.img_redimensionada}
       />
-      <CardContent>
+      <CardContent className={s.infos}>
         <Typography gutterBottom variant="h5" component="div">
         {nome}
         </Typography>

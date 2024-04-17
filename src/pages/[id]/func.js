@@ -8,6 +8,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { PDFViewer } from '@react-pdf/renderer';
 import FuncionarioPDF from '../../components/FuncionarioPDF';
+import { Header } from '../../components/header';
 
 export default function Func({ dados }) {
   const [historicoFuncionario, setHistoricoFuncionario] = useState([]);
@@ -57,6 +58,7 @@ useEffect(() => {
 
   return (
     <>
+    <Header/>
     <div>
       <h1>Detalhes do Funcionário</h1>
       {loading ? ( // Se estiver carregando, exibe um indicador de carregamento

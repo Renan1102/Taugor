@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { auth, db } from '../../firebase';
 import { getAuth, signOut } from 'firebase/auth';
 import { useRouter } from "next/dist/client/router";
+import s from "@/styles/Home.module.css";
 
 import LogoutIcon from '@mui/icons-material/Logout';
 
@@ -32,22 +33,30 @@ export const Header = () => {
 
     return (
         <>
-        <Box sx={{ flexGrow: 1 }}>
+         <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Home
-          </Typography>
-          <Button onClick={logout} color="inherit">LogOut<LogoutIcon sx={{marginLeft: '2vh'}}/></Button>
+        <Toolbar style={{ display: 'flex', justifyContent: 'space-between'}}>
+          <div>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Link className={s.but} href={`/func`}>
+            <Button color="inherit">Home</Button>
+            </Link>
+
+            <Link className={s.but} href={`/func`}>
+            <Button color="inherit">Cadastrar Funcionários</Button>
+            </Link>
+          </div>
+          <div>
+            <Button onClick={logout} color="inherit">LogOut<LogoutIcon sx={{marginLeft: '2vh'}}/></Button>
+          </div>
         </Toolbar>
       </AppBar>
     </Box>
