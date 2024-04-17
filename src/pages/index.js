@@ -5,8 +5,11 @@ import { useState, useEffect } from "react";
 import { auth, app } from '../../firebase';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { useRouter } from "next/dist/client/router";
+import Link from 'next/link';
 
-
+import EmailIcon from '@mui/icons-material/Email';
+import LockIcon from '@mui/icons-material/Lock';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export default function Home() {
 const router = useRouter();
@@ -19,7 +22,7 @@ const [loginError, setLoginError] = useState();
 useEffect(() => {
   const unsubscribe = auth.onAuthStateChanged(user => {
     if (user) {
-      router.replace('/home');
+      router.replace('/func');
     }
   })
 
@@ -32,6 +35,7 @@ const handleLogin = () => {
     .then(userCredential => {
       const user = userCredential.user;
       console.log('Logged in with:', user.email);
+      alert("Você logou")
     })
     .catch(error => {
       console.log(error);
@@ -44,8 +48,10 @@ const handleLogin = () => {
     <>
       <div className={styles.container}>
       <div className={styles.container2}>
-      <p className={styles.buttonOutlineText}>Fazer Login</p>
+      <p className={styles.principal}>Fazer Login</p>
       <div className={styles.inputContainer}>
+      <label className={styles.label_input}>
+          <EmailIcon className={styles.icons}/>
         <input
           type="text"
           placeholder="Email"
@@ -53,6 +59,9 @@ const handleLogin = () => {
           onChange={(e) => setEmail(e.target.value)}
           className={styles.input}
         />
+        </label>
+        <label className={styles.label_input}>
+          <LockIcon className={styles.icons}/>
         <input
           type="password"
           placeholder="Senha"
@@ -60,23 +69,29 @@ const handleLogin = () => {
           onChange={(e) => setPassword(e.target.value)}
           className={styles.input}
         />
+        </label>
       </div>
       <span className={styles.erro}>{loginError}</span>
 
       <div className={styles.buttonContainer}>
-        <button
-          onClick={handleLogin}
-          className={styles.button}
+      <button
+         onClick={handleLogin}
+          className={`${styles.button} ${styles.buttonOutline}`}
         >
           Login
         </button>
-        <p className={styles.registrado}>
-          Não tem uma conta? <a href="/signup" className={styles.log}>
-            Registre-se
-          </a>
-        </p>
+
       </div>
       </div>
+
+      <div className={styles.first_column}>
+      <AccountCircleIcon color="action" className={styles.logo}/>
+                <h2 className={styles.title_primary}>Cadastre-se!</h2>
+                <p className={styles.description_primary}>Não tem uma conta?</p>
+                <Link href="/signup">
+                <button className={styles.btn}>Sign up</button>
+                </Link>
+            </div>
     </div>
     </>
   );

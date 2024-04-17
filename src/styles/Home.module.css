@@ -12,6 +12,7 @@
   width: 50vh;
   display: flex;
   flex-direction: column;
+  margin-left: 2vh;
 }
 .error_message {
   color: red;

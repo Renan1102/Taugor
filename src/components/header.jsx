@@ -6,11 +6,15 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-
+import Link from 'next/link';
 import { auth, db } from '../../firebase';
 import { getAuth, signOut } from 'firebase/auth';
+import { useRouter } from "next/dist/client/router";
+
+import LogoutIcon from '@mui/icons-material/Logout';
 
 export const Header = () => {
+  const router = useRouter();
 
   // Deslogar
   const logout = () => {
@@ -18,7 +22,7 @@ export const Header = () => {
       .then(() => {
         // Sign-out successful.
         console.log('Usuário deslogado');
-        router.replace('/');
+        router.push('/');
       })
       .catch((error) => {
         console.log(error);
@@ -41,11 +45,9 @@ export const Header = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <a href={`/`} className="abrir">
             Home
-            </a>
           </Typography>
-          <Button onClick={logout} color="inherit">LogOut</Button>
+          <Button onClick={logout} color="inherit">LogOut<LogoutIcon sx={{marginLeft: '2vh'}}/></Button>
         </Toolbar>
       </AppBar>
     </Box>

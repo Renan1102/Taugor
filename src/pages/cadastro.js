@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { auth, db, storage } from '../../firebase';
 import { addDoc, collection} from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -8,6 +8,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { IMaskInput } from "react-imask";
 import styles from "@/styles/Home.module.css";
+import s from "@/styles/cadastro.module.css";
+import { Header } from '../components/header';
 
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
@@ -16,6 +18,9 @@ import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
+import PhotoCameraFrontTwoToneIcon from '@mui/icons-material/PhotoCameraFrontTwoTone';
+import FileUploadTwoToneIcon from '@mui/icons-material/FileUploadTwoTone';
+import CreateTwoToneIcon from '@mui/icons-material/CreateTwoTone';
 
 // Schema de validação para a primeira página
 const firstPageSchema = yup.object().shape({
@@ -81,7 +86,7 @@ export default function Home() {
     
     await addDoc(collection(db, 'HistoricoFuncionarios'), historicoData);
     console.log("salvou no historico")
-        router.push('/');
+        router.push('/func');
       } else {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
       }
@@ -117,8 +122,22 @@ export default function Home() {
     }
   };
 
+  //verificar logado
+useEffect(() => {
+  const unsubscribe = auth.onAuthStateChanged(user => {
+    if (!user) {
+      router.replace('/');
+    }
+  })
+
+  return unsubscribe
+}, [])
+
   return (
-    <Box sx={{ width: '100%' }}>
+    <>
+    <Header/>
+    <Box className={s.tudo}>
+      <div className={s.container}>
       <Stepper activeStep={activeStep}>
         {steps.map((label, index) => (
           <Step key={label}>
@@ -129,94 +148,160 @@ export default function Home() {
       <form onSubmit={handleSubmit(onSubmit)}>
         {activeStep === 0 && (
           <>
-            <Typography sx={{ mt: 2, mb: 1 }}>Passo 1</Typography>
+            <Typography sx={{ mt: 2, mb: 1, color: '#0782F9' }}>Passo 1</Typography>
+            <div className={s.grup}>
+              <div className={s.parte_one}>
             <div className={styles.input_container}>
+              <h4>Informações do Funcionário<CreateTwoToneIcon/></h4>
+
+              <div className="form-floating mb-3">
               <input
+              className="form-control" style={{ backgroundColor: '#f7f4f4' }} id="floatingInput"
                 type="text"
                 placeholder="Nome"
                 name="nome"
                 {...register("nome", { required: true })}
               />
+              <label>Nome Completo</label>
+              </div>
+              <label className={s.lab_inputs}>Ex: Thiago Pereira</label>
              <span className={styles.erro}>{errors.nome?.message}</span>
             </div>
+
             <div className={styles.input_container}>
-            <input
-                type="file"
-                name="imagem"
-                onChange={handleImageChange}
-              />
-            </div>
-            <div className={styles.input_container}>
-            <select defaultValue={''} name="sexo" {...register("sexo", { required: true })}>
+            <div className="form-floating mb-3">
+            <select className="form-control" style={{ backgroundColor: '#f7f4f4' }} id="floatingInput" defaultValue={''} name="sexo" {...register("sexo", { required: true })}>
                 <option value="" disabled>Selecione sexo</option>
                 <option value="Homem">Homem</option>
                 <option value="Mulher">Mulher</option>
         </select>
+        <label>Sexo</label>
+        </div>
+        <label className={s.lab_inputs}>Ex: Homem</label>
               <span className={styles.erro}>{errors.sexo?.message}</span>
             </div>
-            <div className={styles.input_container}>
+            </div>
+            
+
+            <div className={`${styles.input_container} ${s.another_class}`}>
+            <label className={s.custom_file_upload} style={{ display: 'flex' }}>
               <input
+                type="file"
+                name="imagem"
+                onChange={handleImageChange}
+              />
+              <PhotoCameraFrontTwoToneIcon className={s.imgg}/>
+              <h4 style={{ width: '30vh', marginTop: '30px' }}>Foto do Perfil<br/><FileUploadTwoToneIcon style={{ width: '8vh', height: '8vh' }}/></h4>
+            </label>
+            </div>
+            
+            </div>
+            
+
+            <div className={`${styles.input_container} ${s.inp_endereco}`}>
+            <div className="form-floating mb-3">
+              <input
+              className="form-control" style={{ backgroundColor: '#f7f4f4' }} id="floatingInput"
                 type="text"
                 placeholder="Endereço"
                 {...register("endereco", { required: true })}
               />
+              <label>Endereço</label>
+              </div>
+              <label className={s.lab_inputs}>Ex: Avenida Paulista, 1234, São Paulo - SP - 07010 001</label>
               <span className={styles.erro}>{errors.endereco?.message}</span>
             </div>
+
             <div className={styles.input_container}>
-            <IMaskInput mask="(00) 00000-0000" type="text" placeholder="Ex:(54) 00000-0000"
+            <div className="form-floating mb-3">
+            <IMaskInput className="form-control my-2" style={{ backgroundColor: '#f7f4f4' }} mask="(00) 00000-0000" type="text" placeholder="Ex:(54) 00000-0000"
              autoComplete="off" required value={phone} onChange={(e) => setPhone(e.target.value)}/>
+             <label>Telefone</label>
+             </div>
+             <label className={s.lab_inputs}>Ex: (11) 99123-7676</label>
               <span className={styles.erro}>{errors.telefone?.message}</span>
             </div>
-            <div className={styles.input_container}>
+            
+            <div className={`${styles.input_container} ${s.inp_data}`}>
+            <div className="form-floating mb-3">
               <input
+              className="form-control" style={{ backgroundColor: '#f7f4f4' }} id="floatingInput"
                 type="date"
                 placeholder="Data de Nascimento"
                 {...register("dataNascimento", { required: true })}
               />
+              <label>Data de Nascimento</label>
+              </div>
+              <label className={s.lab_inputs}>Ex: 01/05/2001</label>
               <span className={styles.erro}>{errors.dataNascimento?.message}</span>
+            
             </div>
+            
           </>
         )}
         {activeStep === 1 && (
           <>
-            <Typography sx={{ mt: 2, mb: 1 }}>Passo 2</Typography>
+            <Typography sx={{ mt: 2, mb: 1, color: '#0782F9' }}>Passo 2</Typography>
             <div className={styles.input_container}>
+            <div className="form-floating mb-3">
               <input
+              className="form-control" style={{ backgroundColor: '#f7f4f4' }} id="floatingInput"
                 type="text"
                 placeholder="Cargo"
                 {...register("cargo", { required: true })}
               />
+              <label>Cargo</label>
+              </div>
+              <label className={s.lab_inputs}>Ex: Analista de Sistemas</label>
               <span className={styles.erro}>{errors.cargo?.message}</span>
             </div>
+
             <div className={styles.input_container}>
+            <div className="form-floating mb-3">
               <input
+              className="form-control" style={{ backgroundColor: '#f7f4f4' }} id="floatingInput"
                 type="date"
                 placeholder="Data de Admissão"
                 {...register("dataAdmissao", { required: true })}
               />
+              <label>Data de Admissão</label>
+              </div>
+              <label className={s.lab_inputs}>Ex: 10/05/2023</label>
               <span className={styles.erro}>{errors.dataAdmissao?.message}</span>
             </div>
+
             <div className={styles.input_container}>
+            <div className="form-floating mb-3">
               <input
+              className="form-control" style={{ backgroundColor: '#f7f4f4' }} id="floatingInput"
                 type="text"
                 placeholder="Setor"
                 {...register("setor", { required: true })}
               />
+              <label>Setor</label>
+              </div>
+              <label className={s.lab_inputs}>Ex: TI</label>
               <span className={styles.erro}>{errors.setor?.message}</span>
             </div>
+
             <div className={styles.input_container}>
+            <div className="form-floating mb-3">
               <input
-                type="text"
+              className="form-control" style={{ backgroundColor: '#f7f4f4' }} id="floatingInput"
+                type="number"
                 placeholder="Salário"
                 {...register("salario", { required: true })}
               />
+              <label>Salário</label>
+              </div>
+              <label className={s.lab_inputs}>Ex: 2000.00</label>
               <span className={styles.erro}>{errors.salario?.message}</span>
             </div>
           </>
         )}
         <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-          <Button
-            color="inherit"
+          <Button  className="btn btn-outline-primary" style={{ marginLeft: '5vh' }}
+            
             disabled={activeStep === 0}
             onClick={handleBack}
             sx={{ mr: 1 }}
@@ -224,12 +309,13 @@ export default function Home() {
             Voltar
           </Button>
           <Box sx={{ flex: '1 1 auto' }} />
-          <Button type="submit">
+          <Button className="btn btn-primary btn-lg" type="submit" style={{ marginRight: '5vh' }}>
             {activeStep === steps.length - 1 ? 'Finalizar' : 'Próximo'}
           </Button>
         </Box>
       </form>
-      
+      </div>
     </Box>
+    </>
   );
 }

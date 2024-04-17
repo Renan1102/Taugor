@@ -1,11 +1,16 @@
 import { useRouter } from 'next/router';
+import { useEffect } from "react";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { updateDoc, doc, getDoc, addDoc, collection } from 'firebase/firestore';
-import { db } from '../../../firebase';
+import { db, auth } from '../../../firebase';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import styles from "@/styles/Home.module.css";
+import s from "@/styles/cadastro.module.css";
+import { Header } from '../../components/header';
+import CreateTwoToneIcon from '@mui/icons-material/CreateTwoTone';
 
 export default function cargoEdit({ dados }) {
   const router = useRouter();
@@ -44,23 +49,45 @@ export default function cargoEdit({ dados }) {
     }
   };
 
+  //verificar logado
+useEffect(() => {
+  const unsubscribe = auth.onAuthStateChanged(user => {
+    if (!user) {
+      router.replace('/');
+    }
+  })
+
+  return unsubscribe
+}, [])
+
+
   return (
-    <div>
-      <Typography variant="h4" gutterBottom>Editar Cargo</Typography>
+    <>
+    <Header/>
+    <div style={{ marginLeft: '10vh', marginTop: '20vh' }}>
+      <Typography variant="h4" gutterBottom>Editar Cargo - Promover Funcionário<CreateTwoToneIcon/></Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <label htmlFor="cargo">Cargo:</label>
-          <input
-            id="cargo"
-            type="text"
-            defaultValue={dados.cargo}
-            {...register('cargo')}
-          />
-          <p>{errors.cargo?.message}</p>
+          <label htmlFor="cargo" style={{ marginLeft: '2vh' }}>Cargo:</label>
+          <div className={styles.input_container}>
+            <div className="form-floating mb-3">
+              <input
+              className="form-control" style={{ backgroundColor: '#f7f4f4' }} id="floatingInput"
+                type="text"
+                placeholder="Cargo"
+                defaultValue={dados.cargo}
+                {...register("cargo", { required: true })}
+              />
+              <label>Cargo</label>
+              </div>
+              <label className={s.lab_inputs}>Ex: Analista de Sistemas</label>
+              <span className={styles.erro}>{errors.cargo?.message}</span>
+            </div>
         </div>
         <Button type="submit">Promover</Button>
       </form>
     </div>
+    </>
   );
 };
 

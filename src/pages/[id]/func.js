@@ -40,6 +40,17 @@ export default function Func({ dados }) {
     fetchHistorico();
   }, [dados._id]);
 
+  //verificar logado
+useEffect(() => {
+  const unsubscribe = auth.onAuthStateChanged(user => {
+    if (!user) {
+      router.replace('/');
+    }
+  })
+
+  return unsubscribe
+}, [])
+
 
   const [loading, setLoading] = useState(true);
 

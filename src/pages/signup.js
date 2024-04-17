@@ -4,10 +4,13 @@ import { initializeApp } from 'firebase/app';
 import { app, auth } from '../../firebase';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { useRouter } from "next/dist/client/router";
-
+import Link from 'next/link';
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
+
+import EmailIcon from '@mui/icons-material/Email';
+import LockIcon from '@mui/icons-material/Lock';
 
 //schema 
 const schema = yup
@@ -52,9 +55,18 @@ const handleSignUp = () => {
   return (
     <>
       <div className={styles.container}>
+      <div className={styles.first_column}>
+                <h2 className={styles.title_primary}>Bem vindo de volta!</h2>
+                <p className={styles.description_primary}>Já está registrado?</p>
+                <Link href="/">
+                <button className={styles.btn}>Login</button>
+                </Link>
+            </div> 
       <form className={styles.container2} onSubmit={handleSubmit(handleSignUp)}>
       <h1 className={styles.principal}>Crie uma Conta</h1>
       <div className={styles.inputContainer}>
+        <label className={styles.label_input}>
+          <EmailIcon className={styles.icons}/>
         <input
           type="text"
           placeholder="Email"
@@ -63,7 +75,10 @@ const handleSignUp = () => {
           onChange={(e) => setEmail(e.target.value)}
           className={styles.input}
         />
+        </label>
         <span className={styles.erro}>{errors.email?.message}</span>
+        <label className={styles.label_input}>
+          <LockIcon className={styles.icons}/>
         <input
           type="password"
           placeholder="Senha"
@@ -72,6 +87,7 @@ const handleSignUp = () => {
           onChange={(e) => setPassword(e.target.value)}
           className={styles.input}
         />
+        </label>
         <span className={styles.erro}>{errors.senha?.message}</span>
       </div>
 
@@ -80,12 +96,10 @@ const handleSignUp = () => {
           type="submit"
           className={`${styles.button} ${styles.buttonOutline}`}
         >
-          <span className={styles.buttonOutlineText}>Registrar</span>
+          Registrar
         </button>
         
-        <p className={styles.registrado}>
-          Já está registrado? <a href="/" className={styles.log}>Login</a>
-        </p>
+
       </div>
       </form>
     </div>
