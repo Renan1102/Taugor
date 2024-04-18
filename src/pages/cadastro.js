@@ -164,8 +164,9 @@ useEffect(() => {
               />
               <label>Nome Completo</label>
               </div>
+              <span className={styles.erro}>{errors.nome?.message}</span>
               <label className={s.lab_inputs}>Ex: Thiago Pereira</label>
-             <span className={styles.erro}>{errors.nome?.message}</span>
+             
             </div>
 
             <div className={styles.input_container}>
@@ -177,8 +178,8 @@ useEffect(() => {
         </select>
         <label>Sexo</label>
         </div>
+        <span className={styles.erro}>{errors.sexo?.message}</span>
         <label className={s.lab_inputs}>Ex: Homem</label>
-              <span className={styles.erro}>{errors.sexo?.message}</span>
             </div>
             </div>
             
@@ -208,8 +209,8 @@ useEffect(() => {
               />
               <label>Endereço</label>
               </div>
-              <label className={s.lab_inputs}>Ex: Avenida Paulista, 1234, São Paulo - SP - 07010 001</label>
               <span className={styles.erro}>{errors.endereco?.message}</span>
+              <label className={s.lab_inputs}>Ex: Avenida Paulista, 1234, São Paulo - SP - 07010 001</label>
             </div>
 
             <div className={styles.input_container}>
@@ -218,8 +219,8 @@ useEffect(() => {
              autoComplete="off" required value={phone} onChange={(e) => setPhone(e.target.value)}/>
              <label>Telefone</label>
              </div>
+             <span className={styles.erro}>{errors.telefone?.message}</span>
              <label className={s.lab_inputs}>Ex: (11) 99123-7676</label>
-              <span className={styles.erro}>{errors.telefone?.message}</span>
             </div>
             
             <div className={`${styles.input_container} ${s.inp_data}`}>
@@ -232,8 +233,8 @@ useEffect(() => {
               />
               <label>Data de Nascimento</label>
               </div>
-              <label className={s.lab_inputs}>Ex: 01/05/2001</label>
               <span className={styles.erro}>{errors.dataNascimento?.message}</span>
+              <label className={s.lab_inputs}>Ex: 01/05/2001</label>
             
             </div>
             
@@ -252,8 +253,8 @@ useEffect(() => {
               />
               <label>Cargo</label>
               </div>
-              <label className={s.lab_inputs}>Ex: Analista de Sistemas</label>
               <span className={styles.erro}>{errors.cargo?.message}</span>
+              <label className={s.lab_inputs}>Ex: Analista de Sistemas</label>
             </div>
 
             <div className={styles.input_container}>
@@ -266,8 +267,8 @@ useEffect(() => {
               />
               <label>Data de Admissão</label>
               </div>
-              <label className={s.lab_inputs}>Ex: 10/05/2023</label>
               <span className={styles.erro}>{errors.dataAdmissao?.message}</span>
+              <label className={s.lab_inputs}>Ex: 10/05/2023</label>
             </div>
 
             <div className={styles.input_container}>
@@ -280,8 +281,8 @@ useEffect(() => {
               />
               <label>Setor</label>
               </div>
-              <label className={s.lab_inputs}>Ex: TI</label>
               <span className={styles.erro}>{errors.setor?.message}</span>
+              <label className={s.lab_inputs}>Ex: TI</label>
             </div>
 
             <div className={styles.input_container}>
@@ -294,8 +295,8 @@ useEffect(() => {
               />
               <label>Salário</label>
               </div>
-              <label className={s.lab_inputs}>Ex: 2000.00</label>
               <span className={styles.erro}>{errors.salario?.message}</span>
+              <label className={s.lab_inputs}>Ex: 2000</label>
             </div>
           </>
         )}

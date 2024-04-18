@@ -82,8 +82,8 @@ useEffect(() => {
               />
               <label>Cargo</label>
               </div>
-              <label className={s.lab_inputs}>Ex: Analista de Sistemas</label>
               <span className={styles.erro}>{errors.cargo?.message}</span>
+              <label className={s.lab_inputs}>Ex: Analista de Sistemas</label>
             </div>
         </div>
         <Button type="submit">Promover</Button>
