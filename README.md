@@ -1,6 +1,18 @@
 # Desafio gerenciador de Funcionários:
 ## [Clique aqui para ver <-](https://taugor-alpha.vercel.app/)) 
 # Especificações
+
+## Construção com:
+
+- React JS, JavaScript, Html, CSS;
+- function components, utilizando hooks;
+- Firebase:
+  - Firestore - banco de dados;
+  - Storage - armazenamento de arquivos;
+  - Authentication - para cadastro e login de usuário.
+- Material UI;
+- React-pdf.
+  
 ## Cadastro de Funcionário:
 
 - Manipulação de documento (PDF).
