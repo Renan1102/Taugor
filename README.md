@@ -1,4 +1,4 @@
-# Desafio gerenciador de Funcionários:
+# Desafio Gerenciador de Funcionários:
 ## [Clique aqui para ver <-](https://taugor-alpha.vercel.app/)) 
 # Especificações
 
